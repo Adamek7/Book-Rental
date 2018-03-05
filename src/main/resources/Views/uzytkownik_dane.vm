@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <title>DANE</title>
+
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/additional-methods.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+
+
+</head>
+
+<body>
+
+
+<div class="container-fixed">
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fixed">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/start">Biblioteka</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/catalog">Katalog</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" id="nameOfUser" name="nameOfUser" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Zalogowano jako $!login<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/change">Ustawienia</a></li>
+                            <li><a href="/logout">Wyloguj</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="jumbotron text-center">
+        <h1>Biblioteka Główna</h1>
+        <p>Akademii Górniczo-Hutniczej im. Stanisława Staszica w Krakowie</p>
+    </div>
+</div>
+
+<div class="container" id="user">
+    <ul class="nav nav-pills nav-justified">
+        <li role="presentation"><a href="/reserved">Rezerwacje</a></li>
+        <li role="presentation"><a href="/borrowed">Wypożyczone</a></li>
+        <li role="presentation"><a href="/penalties">Opłaty</a></li>
+        <li role="presentation"><a href="/history">Historia wypozyczeń</a></li>
+        <li role="presentation" class="active"><a href="/change">Dane użytkownika</a></li>
+    </ul>
+</div>
+
+
+<div class="container">
+    <div class="row">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover table-striped">
+                <tbody>
+                <tr>
+                    <td class="text-center">Adres email</td>
+                    <td class="text-center">
+                        <text>$email</text>
+                    </td>
+                </tr>
+
+
+
+                <tr>
+                    <td class="text-center">Login</td>
+                    <td class="text-center">
+                        <text>$login</text>
+
+                        <a id="changeLogin" data-target="#modalChangeLogin" data-toggle="modal"> Zmień login</a>
+
+                        <div class="modal fade" id="modalChangeLogin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <form method="post" id="formChangeLogin" action="/change">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Zamknij</span></button>
+                                            <h4 class="modal-title" id="myModalLabel1">Zmień login</h4>
+                                        </div>
+
+                                        <div class="modal-body">
+                                            <label id="changeLabel" for="text">Wpisz nowy login</label>
+                                            <input type="text" name="ChangeLoginNew" id="ChangeLoginNew">
+                                        </div>
+
+                                        <div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button><button type="submit" class="btn btn-primary" name="changeLoginSubmit" id="changeLoginSubmit">Zapisz zmiany</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td class="text-center">Hasło</td>
+                    <td class="text-center">
+                        <text type="password" value="hasło">$password</text>
+                        <a id="changePassword" data-target="#modalChangePassword" data-toggle="modal"> Zmień hasło</a>
+
+                        <div class="modal fade" id="modalChangePassword" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <form method="post" id="formChangePassword" action="/change">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Zamknij</span></button>
+                                            <h4 class="modal-title" id="myModalLabel2">Zmień hasło</h4>
+                                        </div>
+
+                                        <div class="modal-body">
+                                            <label id="changeLabel" for="password">Wpisz obecne hasło</label>
+                                            <input type="password" name="ChangePasswordOld" id="ChangePasswordOld">
+
+                                            <label id="changeLabel" for="password">Wpisz nowe hasło</label>
+                                            <input type="password" min="5" name="ChangePasswordNew" id="ChangePasswordNew">
+                                        </div>
+
+                                        <div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button><button type="submit" class="btn btn-primary" name="changePasswordSubmit" id="changePasswordSubmit">Zapisz zmiany</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center">Imię</td>
+                    <td class="text-center"><text>$name</text></td>
+                </tr>
+                <tr>
+                    <td class="text-center">Nazwisko</td>
+                    <td class="text-center"><text>$surname</text></td>
+                </tr>
+                <tr>
+                    <td class="text-center">Data urodzenia</td>
+                    <td class="text-center"><text>$birth_date</text></td>
+                </tr>
+
+
+                <tr>
+                    <td class="text-center">Adres</td>
+                    <td class="text-center">
+                        <text>$address</text>
+
+                        <a id="changeAddress" data-target="#modalChangeAddress" data-toggle="modal"> Zmień adres</a>
+
+                        <div class="modal fade" id="modalChangeAddress" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <form method="post" id="formChangeAddress" action="/change">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Zamknij</span></button>
+                                            <h4 class="modal-title" id="myModalLabel3">Zmień adres</h4>
+                                        </div>
+
+                                        <div class="modal-body">
+
+                                            <label id="changeLabel" for="text">Wpisz nowy adres</label>
+                                            <input type="text" name="ChangeAddressNew" id="ChangeAddressNew">
+                                        </div>
+
+                                        <div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button><button type="submit" class="btn btn-primary" name="changeAddressSubmit" id="changeAddressSubmit">Zapisz zmiany</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+
+
+                <tr>
+                    <td class="text-center">Kod pocztowy</td>
+                    <td class="text-center">
+                        <text>$postal_code</text>
+
+                        <a id="changePostalCode" data-target="#modalChangePostalCode" data-toggle="modal"> Zmień kod pocztowy</a>
+
+                        <div class="modal fade" id="modalChangePostalCode" tabindex="-1" role="dialog" aria-labelledby="myModalLabel4" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <form method="post" id="formChangePostalCode" action="#">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Zamknij</span></button>
+                                            <h4 class="modal-title" id="myModalLabel4">Zmień kod pocztowy</h4>
+                                        </div>
+
+                                        <div class="modal-body">
+
+                                            <label id="changeLabel" for="text">Wpisz nowy kod pocztowy</label>
+                                            <input type="text" name="ChangePostalCodeNew" id="ChangePostalCodeNew">
+                                        </div>
+
+                                        <div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button><button type="submit" class="btn btn-primary" name="changePostalCodeSubmit" id="changePostalCodeSubmit">Zapisz zmiany</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center">Miasto</td>
+
+                    <td class="text-center">
+                        <text>$city</text>
+
+                        <a id="changeCity" data-target="#modalChangeCity" data-toggle="modal"> Zmień miasto</a>
+
+                        <div class="modal fade" id="modalChangeCity" tabindex="-1" role="dialog" aria-labelledby="myModalLabel5" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <form method="post" id="formChangeCity" action="#">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Zamknij</span></button>
+                                            <h4 class="modal-title" id="myModalLabel5">Zmień miasto</h4>
+                                        </div>
+
+                                        <div class="modal-body">
+                                            <label id="changeLabel" for="text">Wpisz nowe miasto</label>
+                                            <input type="text" name="ChangeCityNew" id="ChangeCityNew">
+                                        </div>
+
+                                        <div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button><button type="submit" class="btn btn-primary" name="changeCitySubmit" id="changeCitySubmit">Zapisz zmiany</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td class="text-center">Numer telefonu</td>
+                    <td class="text-center">
+                        <text>$phone</text>
+
+                        <a id="changePhone" data-target="#modalChangePhone" data-toggle="modal"> Zmień numer telefonu</a>
+
+                        <div class="modal fade" id="modalChangePhone" tabindex="-1" role="dialog" aria-labelledby="myModalLabel6" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <form method="post" id="formChangePhone" action="#">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Zamknij</span></button>
+                                            <h4 class="modal-title" id="myModalLabel6">Zmień numer telefonu</h4>
+                                        </div>
+
+                                        <div class="modal-body">
+
+                                            <label id="changeLabel" for="text">Wpisz nowy numer telefonu</label>
+                                            <input type="number" min="0" name="ChangePhoneNew" id="ChangePhoneNew">
+                                        </div>
+
+                                        <div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button><button type="submit" class="btn btn-primary" name="changePhoneSubmit" id="changePhoneSubmit">Zapisz zmiany</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+
+
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+</body>
+
+</html>

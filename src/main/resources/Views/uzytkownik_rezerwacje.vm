@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <title>REZERWACJE</title>
+
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/additional-methods.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+</head>
+
+<body>
+
+<div class="container-fixed">
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fixed">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/start">Biblioteka</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="/catalog">Katalog</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" id="nameOfUser" name="nameOfUser" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Zalogowano jako $login<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/change">Ustawienia</a></li>
+                            <li><a href="/logout">Wyloguj</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="jumbotron text-center">
+        <h1>Biblioteka Główna</h1>
+        <p>Akademii Górniczo-Hutniczej im. Stanisława Staszica w Krakowie</p>
+    </div>
+</div>
+
+<div class="container" id="user">
+    <ul class="nav nav-pills nav-justified">
+        <li role="presentation" class="active"><a href="/reserved">Rezerwacje</a></li>
+        <li role="presentation"><a href="/borrowed">Wypożyczone</a></li>
+        <li role="presentation"><a href="/penalties">Opłaty</a></li>
+        <li role="presentation"><a href="/history">Historia wypozyczeń</a></li>
+        <li role="presentation"><a href="/change">Dane użytkownika</a></li>
+    </ul>
+</div>
+
+
+
+<div align="center" class="container">
+    <div class="row">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover table-striped">
+                <tbody>
+                <thead>
+                <td class="text-center">Usuń rezerwacje</td>
+                <td class="text-center">Tytuł</td>
+                <td class="text-center">Autor</td>
+                <td class="text-center">Data rezerwacji</td>
+                <td class="text-center">Dostępna do</td>
+                </thead>
+                <tr>
+
+                    #if($reserved.isEmpty())
+                        <h1 id="noReserved">Nie masz żadnych rezerwacji</h1>
+                    #else #foreach($reservedBook in $reserved)
+
+                        <td class="text-center">
+                            <form action="/reserved/$reservedBook.getIdReserved()" method="post" id="formReservation" name="formReservation" class="form-signin">
+                                <button class="btn btn-primary" id="deleteReservation" name="deleteReservation" type="submit">Usuń rezerwację</button>
+                            </form>
+                        </td>
+                        <td class="text-center">$reservedBook.getTitle()</td>
+                        <td class="text-center">$reservedBook.getAuthors()</td>
+                        <td class="text-center">$reservedBook.getReservedDate()</td>
+                        <td class="text-center">$!reservedBook.getExpireDate()</td>
+                        <tr>
+
+
+                    #end #end
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+</body>
+
+</html>
