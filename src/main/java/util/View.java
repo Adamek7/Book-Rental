@@ -1,0 +1,39 @@
+package util;
+
+import org.apache.velocity.app.VelocityEngine;
+import spark.ModelAndView;
+import spark.Request;
+import spark.template.velocity.VelocityTemplateEngine;
+
+
+import java.util.Map;
+
+public class View {
+
+    private static VelocityTemplateEngine MyVelocityEngine() {
+        VelocityEngine configuredEngine = new VelocityEngine();
+        configuredEngine.setProperty("input.encoding", "UTF-8");
+        configuredEngine.setProperty("output.encoding", "UTF-8");
+        configuredEngine.setProperty("runtime.references.strict", true);
+        configuredEngine.setProperty("resource.loader", "class");
+        configuredEngine.setProperty("class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
+        configuredEngine.init();
+        return new VelocityTemplateEngine(configuredEngine);
+    }
+
+    /**
+     * Renderuje stronę o podanej ścieżce
+     * @param request
+     * @param model atrubuty które są przekazywane do veolcity
+     * @param templatePath ścieżka do pliku velocity
+     * @return
+     */
+    public static String render(Request request, Map<String, Object> model, String templatePath) {
+//        model.put("msg", new MessageBundle(getSessionLocale(request)));
+//        model.put("currentUser", getSessionCurrentUser(request));
+       // model.put("WebPath", Constants.class); // Access application URLs from templates;
+          return MyVelocityEngine().render(new ModelAndView(model, templatePath));
+    }
+
+
+}
